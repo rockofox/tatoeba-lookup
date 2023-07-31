@@ -26,6 +26,10 @@ jobs:
           name: web-ext-artifacts
           path: |
             web-ext-artifacts
+      - name: Build
+        run: |
+          npm ci
+          npm run build:firefox
       - name: Upload & release
         uses: mnao305/chrome-extension-upload@v4.0.1
         with:

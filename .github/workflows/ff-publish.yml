@@ -1,0 +1,21 @@
+name: Builds, signs and publishes the WebExtension
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish-to-amo:
+    name: Build and publish the extension
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull and checkout source
+        uses: actions/checkout@main
+
+      - name: Sign the web-ext
+        uses: issammani/sign-web-extension-action@master
+        with:
+          web-ext-id: "{f9090a57-ca98-4d61-8402-f2bc3221214c}"
+          sign-listed: true
+          amo-api-key: ${{ secrets.AMO_API_KEY }}
+          amo-api-secret: ${{ secrets.AMO_API_SECRET }}

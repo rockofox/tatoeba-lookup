@@ -1,0 +1,30 @@
+name: Builds, signs and publishes the chrome extension
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish-to-amo:
+    name: Build and publish the extension
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull and checkout source
+        uses: actions/checkout@main
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 18
+      - name: Build
+        run: |
+          npm ci
+          npm run build
+      - name: Upload & release
+        uses: mnao305/chrome-extension-upload@v4.0.1
+        with:
+          file-path: web-ext-artifacts/*.zip
+          extension-id: jkhhkdnkpplccgpkhokipcjbjkdimahc
+          client-id: ${{ secrets.GOOGLE_CLIENT_ID }}
+          client-secret: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          refresh-token: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          glob: true
+

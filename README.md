@@ -29,5 +29,6 @@ Tatoeba Lookup is a WebExtension that allows users to fetch and display definiti
 ## Acknowledgements
 
 - [Tatoeba](https://tatoeba.org/eng)
+- [Tatoeba Logo](https://commons.wikimedia.org/wiki/File:Tatoeba_Logo.svg)
 - [Esperanto flag](https://commons.wikimedia.org/wiki/File:Twemoji-style_Esperanto_flag.svg)
 - [Toki Pona flag](https://commons.wikimedia.org/wiki/File:Twemoji-style_Toki_Pona_flag.svg)

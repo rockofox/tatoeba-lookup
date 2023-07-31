@@ -17,5 +17,6 @@ jobs:
         with:
           web-ext-id: "{f9090a57-ca98-4d61-8402-f2bc3221214c}"
           sign-listed: true
+          web-ext-source-dir: extension-dist
           amo-api-key: ${{ secrets.AMO_API_KEY }}
           amo-api-secret: ${{ secrets.AMO_API_SECRET }}

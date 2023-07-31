@@ -1,5 +1,8 @@
 # Tatoeba Lookup
 
+<img height="550" align="middle" src="assets/more.gif"/>
+<img height="550"  align="middle" src="assets/jp-to-en.gif"/>
+<br/>
 Tatoeba Lookup is a WebExtension that allows users to fetch and display definitions for selected words from the Tatoeba dictionary.
 
 ## Features
@@ -14,7 +17,9 @@ Tatoeba Lookup is a WebExtension that allows users to fetch and display definiti
 3. The popup will display the definition of the selected word.
 
 ## Installation (until I package the extension properly)
+
 **Firefox**
+
 1. Download or clone this repository.
 2. Open Firefox and navigate to `about:debugging`.
 3. Click "This Firefox".

@@ -5,7 +5,8 @@
   "main": "background.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:firefox": "web-ext run --source-dir ./extension-dist/"
+    "start:firefox": "web-ext run --source-dir ./extension-dist/",
+    "build:firefox": "web-ext build --source-dir ./extension-dist/"
   },
   "author": "",
   "license": "ISC",

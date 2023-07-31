@@ -6,9 +6,15 @@
     "icons": {
         "48": "icon.png"
     },
-    "permissions": ["activeTab", "https://tatoeba.org/*", "storage"],
+    "permissions": [
+        "activeTab",
+        "https://tatoeba.org/*",
+        "storage"
+    ],
     "background": {
-        "scripts": ["background.js"]
+        "scripts": [
+            "background.js"
+        ]
     },
     "browser_action": {
         "default_icon": "icon.png",

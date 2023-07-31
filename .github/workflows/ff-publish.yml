@@ -16,7 +16,7 @@ jobs:
         uses: issammani/sign-web-extension-action@master
         with:
           web-ext-id: "{f9090a57-ca98-4d61-8402-f2bc3221214c}"
-          sign-listed: true
+          sign-listed: false
           web-ext-source-dir: extension-dist
           amo-api-key: ${{ secrets.AMO_API_KEY }}
           amo-api-secret: ${{ secrets.AMO_API_SECRET }}

@@ -26,3 +26,11 @@ jobs:
           name: web-ext-artifacts
           path: |
             web-ext-artifacts
+      - name: Upload & release
+        uses: mnao305/chrome-extension-upload@v4.0.1
+        with:
+          file-path: web-ext-artifacts/tatoeba_lookup-1.0.zip
+          extension-id: jkhhkdnkpplccgpkhokipcjbjkdimahc
+          client-id: ${{ secrets.GOOGLE_CLIENT_ID }}
+          client-secret: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          refresh-token: ${{ secrets.GOOGLE_REFRESH_TOKEN }}

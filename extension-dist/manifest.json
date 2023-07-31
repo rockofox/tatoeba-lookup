@@ -1,0 +1,17 @@
+{
+    "manifest_version": 2,
+    "name": "Tatoeba Lookup",
+    "version": "1.0",
+    "description": "Fetches definitions from Tatoeba Dictionary",
+    "icons": {
+        "48": "icon.png"
+    },
+    "permissions": ["activeTab", "https://tatoeba.org/*", "storage"],
+    "background": {
+        "scripts": ["background.js"]
+    },
+    "browser_action": {
+        "default_icon": "icon.png",
+        "default_popup": "popup/popup.html"
+    }
+}

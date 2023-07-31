@@ -20,3 +20,9 @@ jobs:
           web-ext-source-dir: extension-dist
           amo-api-key: ${{ secrets.AMO_API_KEY }}
           amo-api-secret: ${{ secrets.AMO_API_SECRET }}
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: web-ext-artifacts
+          path: |
+            web-ext-artifacts

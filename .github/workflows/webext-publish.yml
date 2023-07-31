@@ -11,6 +11,9 @@ jobs:
     steps:
       - name: Pull and checkout source
         uses: actions/checkout@main
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 18
 
       - name: Sign the web-ext
         uses: issammani/sign-web-extension-action@master

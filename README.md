@@ -1,30 +1,30 @@
 # Tatoeba Lookup
 
-<img height="550" align="middle" src="assets/more.gif"/>
-<img height="550"  align="middle" src="assets/jp-to-en.gif"/>
+<img height="500" align="right" src="assets/more.gif"/>
+<!-- <img height="500" align="right" src="assets/jp-to-en.gif"/> -->
 <br/>
+ 
+Install for [Firefox
+](https://addons.mozilla.org/en-US/firefox/addon/tatoeba-lookup/) |
+<ins>Chrome (coming soon)</ins>
+
 Tatoeba Lookup is a WebExtension that allows users to fetch and display definitions for selected words from the Tatoeba dictionary.
 
 ## Features
 
-- Lookup word definitions from any webpage.
-- Uses the Tatoeba dictionary's API.
+- Lookup example sentences for the selected word on any webpage.
 
 ## Usage
 
 1. Select (highlight) the word you want to look up on any webpage.
 2. Click the Tatoeba Lookup extension icon in your toolbar.
-3. The popup will display the definition of the selected word.
+3. The popup will display example sentences containing the selected word.
 
-## Installation (until I package the extension properly)
+## Installing from source
+Clone the repo, run `npm run build` and do the following, depending on your browser
 
-**Firefox**
-
-1. Download or clone this repository.
-2. Open Firefox and navigate to `about:debugging`.
-3. Click "This Firefox".
-4. Click "Load Temporary Add-on”.
-5. Open the extension’s directory and select any file.
+* [**Firefox**](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Your_first_WebExtension#installing)
+* [**Chrome**](https://developer.chrome.com/docs/extensions/mv3/external_extensions/)
 
 ## Acknowledgements
 

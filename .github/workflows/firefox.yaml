@@ -3,7 +3,8 @@ on:
   push:
     branches:
       - main
-
+    paths:
+      - extension-dist/manifest.json
 jobs:
   publish-to-amo:
     name: Build and publish the extension

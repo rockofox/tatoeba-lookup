@@ -11,14 +11,20 @@ jobs:
     steps:
       - name: Pull and checkout source
         uses: actions/checkout@main
-      - name: Sign the web-ext
-        uses: issammani/sign-web-extension-action@master
+      - uses: actions/setup-node@v1
         with:
-          web-ext-id: "{f9090a57-ca98-4d61-8402-f2bc3221214c}"
-          sign-listed: false
-          web-ext-source-dir: extension-dist
-          amo-api-key: ${{ secrets.AMO_API_KEY }}
-          amo-api-secret: ${{ secrets.AMO_API_SECRET }}
+          node-version: 18
+      - name: Build
+        run: |
+          npm ci
+          npm run build -n tatoeba-lookup.zip
+      - name: Upload & release
+        uses: yayuyokitano/firefox-addon@v0.0.3-alpha
+        with:
+          api_key: ${{ secrets.AMO_API_KEY }}
+          api_secret: ${{ secrets.AMO_API_SECRET }}
+          guid: '{f9090a57-ca98-4d61-8402-f2bc3221214c}'
+          xpi_path: web-ext-artifacts/tatoeba-lookup.zip
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3
         with:

@@ -17,7 +17,7 @@ jobs:
       - name: Build
         run: |
           npm ci
-          npm run build -n tatoeba-lookup.zip
+          npm run build -- -n tatoeba-lookup.zip
       - name: Upload & release
         uses: yayuyokitano/firefox-addon@v0.0.3-alpha
         with:

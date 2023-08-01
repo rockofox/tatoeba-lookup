@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Tatoeba Lookup",
-    "version": "1.0.12",
+    "version": "1.0.13",
     "description": "Fetches definitions from Tatoeba Dictionary",
     "icons": {
         "48": "icon.png"
@@ -24,7 +24,7 @@
     },
     "browser_specific_settings": {
         "gecko": {
-            "id": "tatoeba-lookup@fox.boo"
+            "id": "f9090a57-ca98-4d61-8402-f2bc3221214c"
         }
     }
 }

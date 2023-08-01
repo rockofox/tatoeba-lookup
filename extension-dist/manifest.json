@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Tatoeba Lookup",
-    "version": "1.0.14",
+    "version": "1.0.15",
     "description": "Fetches definitions from Tatoeba Dictionary",
     "icons": {
         "48": "icon.png"

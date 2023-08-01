@@ -276,7 +276,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+function fetchDefinition(word, sourceLang, targetLang, sendResponse) {
+    const url = `https://tatoeba.org/eng/api_v0/search?from=${sourceLang}&trans_filter=limit&query=${word}&sort=created&trans_to=${targetLang}&to=${targetLang}`;
+    console.log(url);
 
+    fetch(url)
+        .then(response => {
+            if(response.ok) {
+                return response.json();
+            }
+        })
+        .then(data => sendResponse(data))
+        .catch(error => console.error(error));
+    return true;  // Will respond asynchronously.
+}
 function getFlagEmoji(countryCode) {
     switch (countryCode) {
         case 'tok':
@@ -300,46 +313,52 @@ function getFlagEmoji(countryCode) {
 }
 
 function update() {
-    chrome.tabs.executeScript({
-        code: "window.getSelection().toString();"
-    }, function(selection) {
-        let word = selection[0];
-        const sourceLang = source.options[source.selectedIndex].value;
-        const targetLang = target.options[target.selectedIndex].value;
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        chrome.scripting.executeScript({
+            target: {tabId: tabs[0].id},
+            func: function() {
+                return window.getSelection().toString();
+            }
+        }, function(selection) {
+            let word = selection[0].result;
+            const sourceLang = source.options[source.selectedIndex].value;
+            const targetLang = target.options[target.selectedIndex].value;
 
-        if (word) {
-            document.getElementById('definition').innerHTML = '<div class="loader"></div>';
-            chrome.runtime.sendMessage(
-                { action: "fetchDefinition", word: word, sourceLang, targetLang },
-                function(response) {
-                    document.getElementById('definition').innerHTML = '';
-                    if (response.results.length == 0) {
-                        document.getElementById('definition').innerHTML = `
-                            <p class='err'>Word not found</p>
-                        `
-                        return;
-                    }
-                    for (const result of response.results) {
-                        if (result) {
-                            const translation = result?.translations?.find(t => t[0] !== undefined)[0];
-                            if (translation === undefined) {
-                                continue;
+            if (word) {
+                document.getElementById('definition').innerHTML = '<div class="loader"></div>';
+                chrome.runtime.sendMessage(
+                    { action: "fetchDefinition", word: word, sourceLang, targetLang },
+                    function(response) {
+                            console.log(response);
+                        document.getElementById('definition').innerHTML = '';
+                        if (response.results.length == 0) {
+                            document.getElementById('definition').innerHTML = `
+                                <p class='err'>Word not found</p>
+                            `
+                            return;
+                        }
+                        for (const result of response.results) {
+                            if (result) {
+                                const translation = result?.translations?.find(t => t[0] !== undefined)[0];
+                                if (translation === undefined) {
+                                    continue;
+                                }
+                                document.getElementById('definition').innerHTML += `
+                                <div class='result'>
+                                    <i class='sentence'><span class='flag'>${getFlagEmoji(result.lang)}</span>${result.text.replace(new RegExp(`(${word})`, 'gi'), '<b>$1</b>')}</i>
+                                    <p class='translation'><span class='flag'>${getFlagEmoji(translation.lang)}</span>${translation.text}</p>
+                                </div>
+                             `
                             }
-                            document.getElementById('definition').innerHTML += `
-                            <div class='result'>
-                                <i class='sentence'><span class='flag'>${getFlagEmoji(result.lang)}</span>${result.text.replace(new RegExp(`(${word})`, 'gi'), '<b>$1</b>')}</i>
-                                <p class='translation'><span class='flag'>${getFlagEmoji(translation.lang)}</span>${translation.text}</p>
-                            </div>
-                         `
                         }
                     }
-                }
-            );
-        } else {
-            document.getElementById('definition').innerHTML = `
-                <p class='err'>No word selected</p>
-            `
-        }
+                );
+            } else {
+                document.getElementById('definition').innerHTML = `
+                    <p class='err'>No word selected</p>
+                `
+            }
+        });
     });
-
 }
+

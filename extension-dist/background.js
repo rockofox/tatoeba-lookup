@@ -1,12 +1,15 @@
 function fetchDefinition(word, sourceLang, targetLang, sendResponse) {
-    const url = `https://tatoeba.org/eng/api_v0/search?from=${sourceLang}&trans_filter=limit&query=${word}&sort=created&trans_to=${targetLang}&to=${targetLang}`;
+    const hosts = ["https://tatoeba.elnu.com/", "https://tatoeba.elnu.com/"]
+    const url = `${hosts[0]}?from=${sourceLang}&trans_filter=limit&query=${word}&sort=created&trans_to=${targetLang}&to=${targetLang}`;
     console.log(url);
 
-    fetch(url)
-        .then(response => response.json())
-        .then(data => sendResponse(data))
+    fetch(url, {mode: 'cors'})
+        .then(response => {
+            if(response.ok) {
+                sendResponse(response.json());
+            }
+        })
         .catch(error => console.error(error));
-
     return true;  // Will respond asynchronously.
 }
 

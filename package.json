@@ -1,5 +1,5 @@
 {
-  "name": "tatoeba-firefox",
+  "name": "tatoeba-lookup",
   "version": "1.0.0",
   "description": "",
   "main": "background.js",

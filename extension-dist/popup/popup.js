@@ -269,9 +269,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     chrome.storage.local.get('sourceLang', function(result) {
-        source.value = result.sourceLang;
+        source.value = result.sourceLang ?? '';
         chrome.storage.local.get('targetLang', function(result) {
-            target.value = result.targetLang;
+            target.value = result.targetLang ?? '';
             update();
         });
     });

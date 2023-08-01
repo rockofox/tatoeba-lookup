@@ -2,9 +2,37 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue",sans-serif;
     width: 560px;
 }
+.title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    text-align: center;
+}
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #1e1e1e;
+        color: #fff;
+    }
+    .err {
+        color: pink;
+    }
+    a {
+        color: lightblue;
+    }
+}
+@media (prefers-color-scheme: light) {
+    body {
+        background-color: #fff;
+        color: #000;
+    }
+    .err {
+        color: #9E0000;
+    }
+}
 
-.err {
-    color: red;
+.view-on-website {
+    text-align: right;
+    display:block;
 }
 
 .sentence {

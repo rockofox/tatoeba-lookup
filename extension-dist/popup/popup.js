@@ -178,7 +178,7 @@ var alpha3ToAlpha2 = {
     PHL: "PH",
     PCN: "PN",
     POL: "PL",
-    PRT: "PT",
+    POR: "PT",
     PRI: "PR",
     QAT: "QA",
     REU: "RE",
@@ -276,20 +276,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-function fetchDefinition(word, sourceLang, targetLang, sendResponse) {
-    const url = `https://tatoeba.org/eng/api_v0/search?from=${sourceLang}&trans_filter=limit&query=${word}&sort=created&trans_to=${targetLang}&to=${targetLang}`;
-    console.log(url);
-
-    fetch(url)
-        .then(response => {
-            if(response.ok) {
-                return response.json();
-            }
-        })
-        .then(data => sendResponse(data))
-        .catch(error => console.error(error));
-    return true;  // Will respond asynchronously.
-}
 function getFlagEmoji(countryCode) {
     switch (countryCode) {
         case 'tok':
@@ -313,9 +299,9 @@ function getFlagEmoji(countryCode) {
 }
 
 function update() {
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
         chrome.scripting.executeScript({
-            target: {tabId: tabs[0].id},
+            target: { tabId: tabs[0].id },
             func: function() {
                 return window.getSelection().toString();
             }
@@ -326,10 +312,10 @@ function update() {
 
             if (word) {
                 document.getElementById('definition').innerHTML = '<div class="loader"></div>';
+                document.getElementById('tatoeba-link-wrapper').innerHTML = '';
                 chrome.runtime.sendMessage(
                     { action: "fetchDefinition", word: word, sourceLang, targetLang },
                     function(response) {
-                            console.log(response);
                         document.getElementById('definition').innerHTML = '';
                         if (response.results.length == 0) {
                             document.getElementById('definition').innerHTML = `
@@ -337,6 +323,9 @@ function update() {
                             `
                             return;
                         }
+                        document.getElementById('tatoeba-link-wrapper').innerHTML = `
+                            <a class='view-on-website' href='https://tatoeba.org/en/sentences/search?from=${sourceLang}&query=${word}&to=${targetLang}'>View on Tatoeba</a>
+                        `;
                         for (const result of response.results) {
                             if (result) {
                                 const translation = result?.translations?.find(t => t[0] !== undefined)[0];

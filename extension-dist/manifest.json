@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Tatoeba Lookup",
-    "version": "1.0.16",
+    "version": "1.0.17",
     "description": "Fetches definitions from Tatoeba Dictionary",
     "icons": {
         "48": "icon.png"
@@ -21,6 +21,14 @@
     "action": {
         "default_icon": "icon.png",
         "default_popup": "popup/popup.html"
+    },
+    "commands": {
+        "_execute_action": {
+            "suggested_key": {
+                "default": "Ctrl+Alt+T",
+                "mac": "Command+Alt+T"
+            }
+        }
     },
     "browser_specific_settings": {
         "gecko": {

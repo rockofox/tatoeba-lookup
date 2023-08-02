@@ -317,27 +317,41 @@ function update() {
                     { action: "fetchDefinition", word: word, sourceLang, targetLang },
                     function(response) {
                         document.getElementById('definition').innerHTML = '';
-                        if (response.results.length == 0) {
+                        if (response?.results?.length == 0) {
                             document.getElementById('definition').innerHTML = `
                                 <p class='err'>Word not found</p>
                             `
                             return;
+                        }
+                        if(response === undefined) {
+                                document.getElementById('definition').innerHTML = `
+                                    <p class='err'>Error fetching definition</p>
+                                `;
+                                return;
                         }
                         document.getElementById('tatoeba-link-wrapper').innerHTML = `
                             <a class='view-on-website' href='https://tatoeba.org/en/sentences/search?from=${sourceLang}&query=${word}&to=${targetLang}'>View on Tatoeba</a>
                         `;
                         for (const result of response.results) {
                             if (result) {
-                                const translation = result?.translations?.find(t => t[0] !== undefined)[0];
-                                if (translation === undefined) {
-                                    continue;
-                                }
+                                const translation = (result?.translations?.find(t => t[0] !== undefined) ?? [])[0];
                                 document.getElementById('definition').innerHTML += `
                                 <div class='result'>
                                     <i class='sentence'><span class='flag'>${getFlagEmoji(result.lang)}</span>${result.text.replace(new RegExp(`(${word})`, 'gi'), '<b>$1</b>')}</i>
+                                `;
+                                if (translation) {
+                                    document.getElementById('definition').innerHTML += `
                                     <p class='translation'><span class='flag'>${getFlagEmoji(translation.lang)}</span>${translation.text}</p>
-                                </div>
-                             `
+                                    `;
+                                }
+                                else {
+                                    document.getElementById('definition').innerHTML += `
+                                    <p class='translation'></p>
+                                    `;
+                                    }
+                                document.getElementById('definition').innerHTML += `
+                                    </div>
+                                `;
                             }
                         }
                     }
@@ -345,7 +359,7 @@ function update() {
             } else {
                 document.getElementById('definition').innerHTML = `
                     <p class='err'>No word selected</p>
-                `
+                `;
             }
         });
     });

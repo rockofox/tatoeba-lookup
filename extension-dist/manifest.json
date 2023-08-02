@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Tatoeba Lookup",
-    "version": "1.0.18",
+    "version": "1.0.19",
     "description": "Fetches definitions from Tatoeba Dictionary",
     "icons": {
         "48": "icon.png"
@@ -25,8 +25,7 @@
     "commands": {
         "_execute_action": {
             "suggested_key": {
-                "default": "Ctrl+Alt+T",
-                "mac": "Command+Alt+T"
+                "default": "Alt+Shift+T"
             }
         }
     },

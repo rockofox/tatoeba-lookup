@@ -5,8 +5,7 @@
 <br/>
  
 Install for [Firefox
-](https://addons.mozilla.org/en-US/firefox/addon/tatoeba-lookup/) |
-<ins>Chrome (coming soon)</ins>
+](https://addons.mozilla.org/en-US/firefox/addon/tatoeba-lookup/) | [Chrome](https://chrome.google.com/webstore/detail/tatoeba-lookup/jkhhkdnkpplccgpkhokipcjbjkdimahc)
 
 Tatoeba Lookup is a WebExtension that allows users to fetch and display definitions for selected words from the Tatoeba dictionary.
 

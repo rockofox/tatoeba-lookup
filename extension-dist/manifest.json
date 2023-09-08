@@ -9,14 +9,11 @@
     "permissions": [
         "activeTab",
         "storage",
-        "scripting"
+        "scripting",
+        "declarativeNetRequest"
     ],
-    "background": {
-        "scripts" : ["background.js"]
-    },
     "host_permissions": [
-        "https://tatoeba.org/",
-        "https://tatoeba.elnu.com/"
+        "https://tatoeba.org/"
     ],
     "action": {
         "default_icon": "icon.png",

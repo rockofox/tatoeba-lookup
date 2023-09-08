@@ -13,13 +13,6 @@ jobs:
     steps:
       - name: Pull and checkout source
         uses: actions/checkout@main
-      - name: Find and Replace
-        uses: jacobtomlinson/gha-find-replace@v3
-        with:
-          find: "\"scripts\" : [\"background.js\"]"
-          replace: "\"service_worker\" : \"background.js\""
-          regex: false
-          include: "**manifest.json"
       - uses: actions/setup-node@v1
         with:
           node-version: 18

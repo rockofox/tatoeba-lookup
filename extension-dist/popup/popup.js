@@ -1,4 +1,4 @@
-var alpha3ToAlpha2 = {
+const alpha3ToAlpha2 = {
     AFG: "AF",
     ALA: "AX",
     ALB: "AL",
@@ -251,6 +251,8 @@ var alpha3ToAlpha2 = {
     ZWE: "ZW",
     XKX: "XK"
 };
+const apiURL = 'https://tatoeba.org/';
+
 const flip = (data) => Object.fromEntries(
     Object
         .entries(data)
@@ -259,6 +261,16 @@ const flip = (data) => Object.fromEntries(
 const alpha2ToAlpha3 = flip(alpha3ToAlpha2);
 
 document.addEventListener('DOMContentLoaded', function() {
+    browser.permissions.contains({ origins: [apiURL] }).then(function(hasPermission) {
+        if(!hasPermission) {
+            document.getElementById('permissionPopup').style.display = 'block';
+            document.getElementById('main').style.display = 'none';
+        }
+    });
+    document.getElementById('grantPermission').addEventListener('click', function() {
+        browser.permissions.request({ origins: [apiURL] });
+        location.reload();
+    });
     document.getElementById('source').addEventListener('change', function() {
         chrome.storage.local.set({ 'sourceLang': source.value });
         update();
@@ -298,6 +310,12 @@ function getFlagEmoji(countryCode) {
     return String.fromCodePoint(...codePoints);
 }
 
+function fetchDefinition(word, sourceLang, targetLang, response) {
+    const url = `${apiURL}/eng/api_v0/search?from=${sourceLang}&trans_filter=limit&query=${word}&sort=created&trans_to=${targetLang}&to=${targetLang}`;
+    fetch(url).then(r => r.json().then(j=>response(j))).catch((e) => {
+        throw e;
+    });
+}
 function update() {
     chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
         chrome.scripting.executeScript({
@@ -313,10 +331,9 @@ function update() {
             if (word) {
                 document.getElementById('definition').innerHTML = '<div class="loader"></div>';
                 document.getElementById('tatoeba-link-wrapper').innerHTML = '';
-                chrome.runtime.sendMessage(
-                    { action: "fetchDefinition", word: word, sourceLang, targetLang },
-                    function(response) {
+                fetchDefinition(word, sourceLang, targetLang, function(response) {
                         document.getElementById('definition').innerHTML = '';
+                        console.log(response);
                         if (response?.results?.length == 0) {
                             document.getElementById('definition').innerHTML = `
                                 <p class='err'>Word not found</p>
